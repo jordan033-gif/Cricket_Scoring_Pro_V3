@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1220">
+<meta name="description" content="Professional offline cricket scoring app">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon.svg">
+<link rel="stylesheet" href="style.css">
+<title>Cricket Scoring Pro</title>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="ball">🏏</span><div><b>Cricket Scoring</b><small>PRO</small></div></div>
+  <button id="installBtn" class="ghost hidden">Install App</button>
+</header>
+
+<main>
+<section id="home" class="screen active">
+  <div class="hero">
+    <span class="eyebrow">MATCH CENTER</span>
+    <h1>Professional<br><span>Cricket Scoring</span></h1>
+    <p>Fast, simple and offline-ready scoring for your matches.</p>
+    <button class="primary" onclick="showNew()">＋ New Match</button>
+  </div>
+  <div class="stats">
+    <div><strong id="matchCount">0</strong><span>Matches</span></div>
+    <div><strong id="lastScore">—</strong><span>Last Score</span></div>
+    <div><strong id="lastOvers">—</strong><span>Last Overs</span></div>
+  </div>
+  <div class="sectionHead"><h2>Recent Matches</h2><button class="textBtn" onclick="showHistory()">View all</button></div>
+  <div id="recent" class="cards empty">No matches yet. Start your first match.</div>
+</section>
+
+<section id="new" class="screen">
+  <div class="sectionHead"><h2>New Match</h2><button class="iconBtn" onclick="showHome()">×</button></div>
+  <div class="form card">
+    <label>Match Name<input id="matchName" placeholder="e.g. Sunday League Final"></label>
+    <div class="grid2">
+      <label>Team A<input id="teamA" placeholder="Team A"></label>
+      <label>Team B<input id="teamB" placeholder="Team B"></label>
+    </div>
+    <label>Overs<input id="totalOvers" type="number" min="1" max="100" value="10"></label>
+    <label>Batting First<select id="batFirst"><option value="A">Team A</option><option value="B">Team B</option></select></label>
+    <button class="primary full" onclick="startMatch()">Start Match</button>
+  </div>
+</section>
+
+<section id="score" class="screen">
+  <div class="scoreHead">
+    <div><span id="scoreMatch" class="eyebrow"></span><h2 id="batTeam">Team A</h2></div>
+    <button class="iconBtn" onclick="showHome()">⌂</button>
+  </div>
+  <div class="scoreCard">
+    <div class="bigScore"><b id="runs">0</b><span>/<span id="wickets">0</span></span></div>
+    <div class="overInfo"><b id="overs">0.0</b><span>OVERS</span></div>
+    <div class="rr"><b id="rr">0.00</b><span>RUN RATE</span></div>
+  </div>
+  <div class="actions">
+    <button onclick="addRuns(0)">0</button><button onclick="addRuns(1)">1</button>
+    <button onclick="addRuns(2)">2</button><button onclick="addRuns(3)">3</button>
+    <button class="four" onclick="addRuns(4)">4</button><button class="six" onclick="addRuns(6)">6</button>
+  </div>
+  <div class="extras">
+    <button onclick="extra('Wide')">Wide</button>
+    <button onclick="extra('No Ball')">No Ball</button>
+    <button onclick="extra('Bye')">Bye</button>
+    <button onclick="extra('Leg Bye')">Leg Bye</button>
+    <button class="wicket" onclick="wicket()">Wicket</button>
+  </div>
+  <div class="scoreTools">
+    <button onclick="undo()">↶ Undo</button><button onclick="newInnings()">⇄ New Innings</button><button onclick="finishMatch()">✓ Finish</button>
+  </div>
+  <div class="sectionHead"><h2>Ball-by-Ball</h2><span id="inningsLabel" class="pill">Innings 1</span></div>
+  <div id="balls" class="ballList"></div>
+</section>
+
+<section id="history" class="screen">
+  <div class="sectionHead"><h2>Match History</h2><button class="iconBtn" onclick="showHome()">×</button></div>
+  <div id="historyList" class="historyList"></div>
+</section>
+</main>
+
+<nav>
+  <button onclick="showHome()">⌂<span>Home</span></button>
+  <button onclick="showNew()">＋<span>New Match</span></button>
+  <button onclick="showHistory()">▤<span>History</span></button>
+</nav>
+<script src="app.js"></script>
+</body>
+</html>
